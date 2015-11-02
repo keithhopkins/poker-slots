@@ -3,7 +3,7 @@ function containsPair(hand){
     for(var k=i+1;k<hand.length;k++){
       //first condition checks if 2 cards in the hand have the same value
       //second condition ensures that we aren't checking the same card
-      if(hand[i].weight===hand[k].weight){
+      if(hand[i].weight === hand[k].weight){
         return true;
       }
     }
