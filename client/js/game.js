@@ -54,14 +54,20 @@ var deck =  [
   ];
 
 $(document).on('ready', function() {
-  console.log('sanity check!');
+  $.ajax({
+    method: 'GET',
+    // get current user?
+  })
+  .then(function(data){
+    
+  })
 });
 
 var Game = function(player){
   this.hand = [];
   this.player = player ? player : new Player();
   this.deck = deck;
-}
+};
 
 // init
 Game.prototype.init = function(){
