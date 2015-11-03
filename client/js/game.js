@@ -61,7 +61,7 @@ var Game = function(player){
   this.hand = [];
   this.player = player ? player : new Player();
   this.deck = deck;
-}
+};
 
 // init
 Game.prototype.init = function(){
