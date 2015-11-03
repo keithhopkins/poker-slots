@@ -7,7 +7,7 @@ var userRef = ref.child('users');
 var authData = ref.getAuth();
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Poker Slots' });
 });
 
 router.post('/user/login', function(req, res, next){
