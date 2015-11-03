@@ -12,22 +12,54 @@ router.get('/', function(req, res, next) {
 
 router.post('/user/login', function(req, res, next){
     ref.authWithPassword({
-    email    : req.body.loginEmail,
-    password : req.body.loginPassword
+     email    : req.body.loginEmail,
+     password : req.body.loginPassword
   }, authHandler);
-    saveUser();
-    res.redirect('/');
+
+    res.send('/');
+});
+
+router.post('/user/logout', function(req, res, next){
+  ref.unauth();
+  console.log('logged out');
+  res.redirect('/');
+});
+
+router.post('/users', function(req, res, next){
+    ref.createUser({
+    email    : req.body.email,
+    password : req.body.password
+    }, function(error, userData) {
+    if (error) {
+      console.log("Error creating user:", error);
+    } else {
+      res.status("Successfully created user account with uid:").redirect('/');
+    }
+  });
+});
+
+router.post('/user/bank', function(req, res, next) {
+  if(authData) {
+    userRef.child(authData.uid).update({
+      'bank' : req.body.bank
+    });
+  }
+  res.end();
 });
 
 module.exports = router;
 
 // *** helper functions *** //
 
-function authHandler(error, authData) {
+var User = function(bank){
+  this.bank = 500;
+};
+
+function authHandler(error, authData, next) {
   if (error) {
-    console.log("Login Failed!", error);
+    res.json("Login Failed!", error);
   } else {
-    console.log("Authenticated successfully with payload:", authData);
+    return true;
   }
 }
 
@@ -40,5 +72,12 @@ function saveUser(){
         email: authData.password.email,
       });
     }
+  });
+}
+
+function getUserInfo() {
+  var indUserRef = userRef.child(authData.id);
+  indUserRef.on('value', function(snapshot) {
+    return snapshot.val();
   });
 }
