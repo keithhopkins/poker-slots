@@ -114,7 +114,7 @@ var flushHand = [
     { code: "&#x1F0A4", weight: 4, name: "Four of Spades", suit: "Spades"},
     { code: "&#x1F0A5", weight: 5, name: "Five of Spades", suit: "Spades"}
     ];
-var straighFlushHand = [
+var straightFlushHand = [
     { code: "&#x1F0A1", weight: 1, name: "Ace of Spades", suit: "Spades"},
     { code: "&#x1F0A2", weight: 2, name: "Two of Spades", suit: "Spades"},
     { code: "&#x1F0A3", weight: 3, name: "Three of Spades", suit: "Spades"},
@@ -236,7 +236,7 @@ describe('contains straight flush function', function(){
         (result).should.eql(false);
     });
 
-    it('should return true for straight flush house', function(){
+    it('should return true for straight flush', function(){
         var result = straightFlush(straightFlushHand);
         (result).should.eql(true);
     });

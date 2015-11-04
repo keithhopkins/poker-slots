@@ -152,4 +152,5 @@ function royalFlush(hand){
       return true;
     }
   }
+  return false;
 }
