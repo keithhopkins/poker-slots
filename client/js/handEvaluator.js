@@ -1,3 +1,4 @@
+
 function containsPair(hand){
   for(var i=0;i<hand.length;i++){
     for(var k=i+1;k<hand.length;k++){
@@ -70,6 +71,7 @@ function fourOfAKind(hand){
       }
     }
   }
+  return false;
 }
 
 //checks for a full house
