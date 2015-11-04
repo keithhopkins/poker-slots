@@ -65,7 +65,7 @@ $(document).on('ready', function() {
 
 var Game = function(player){
   this.hand = [];
-  this.player = player ? player : new Player();
+  this.player = player;
   this.deck = deck;
 };
 
