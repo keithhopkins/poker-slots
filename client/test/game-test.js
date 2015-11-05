@@ -78,9 +78,10 @@ describe('deal', function(){
     var player;
     var game;
 
-    beforeEach(function(){
+    beforeEach(function(done){
         player = new Player("Ganesh");
         game = new Game(player);
+        done();
     });
 
     it('should deal 5 cards', function(){
@@ -117,16 +118,46 @@ describe('deal', function(){
 });
 
 describe('payout', function(){
-    var player = new Player("Ganesh");
-    var game = new Game(player);
+    var player;
+    var game;
+    
+    beforeEach(function(done){
+        player = new Player("Ganesh");
+        game = new Game(player); 
+        done(); 
+    });
 
     it('should not increase bank with losing hand', function(){
 
         (game.player.bank).should.eql(500);
+        game.payout(0, 50);
+        (game.player.bank).should.eql(500);
+
+    });
+
+    it('should increase bank with winning hand by factor of hand weight', function(){
+
+        (game.player.bank).should.eql(500);
         game.payout(2, 50);
-        (game.player.bank).should.eql(600);
-        game.payout(5, 10);
         (game.player.bank).should.eql(650);
+        game.payout(5, 10);
+        (game.player.bank).should.eql(710);
+
+    });
+
+});
+
+describe('bet', function(){
+    var player = new Player("Ganesh");
+    var game = new Game(player);
+
+    it('should decrease player bank', function(){
+
+        (game.player.bank).should.eql(500);
+        game.bet();
+        (game.player.bank).should.eql(490);
+        game.bet(40);
+        (game.player.bank).should.eql(450);
 
     });
 
