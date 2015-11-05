@@ -10,6 +10,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Poker Slots' });
 });
 
+router.get('/game', function(req, res, next) {
+  res.render('game', { title: 'Poker Sluts' });
+});
+
+
 router.post('/user/login', function(req, res, next){
     ref.authWithPassword({
      email    : req.body.loginEmail,
