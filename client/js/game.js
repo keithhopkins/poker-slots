@@ -54,13 +54,15 @@ var deck =  [
   ];
 
 $(document).on('ready', function() {
-  $.ajax({
-    method: 'GET',
-    // get current user?
-  })
-  .then(function(data){
-    
-  })
+    var game = new Game(new Player());
+    $('#deal').on('click', function(){
+      game.deal();
+      var handVal = game.analyzeHand();
+      game.payout(handVal);
+      game.updateDom();
+      console.log(handVal);
+      console.log(game.player.bank);
+    });
 });
 
 var Game = function(player){
@@ -69,10 +71,23 @@ var Game = function(player){
   this.deck = deck;
 };
 
-// init
-Game.prototype.init = function(){
-
+Game.prototype.updateDom = function(){
+  this.updateHandDom();
+  $('#bank').text = this.player.bank;
 };
+
+Game.prototype.updateHandDom = function(){
+  document.getElementById('hand').innerHTML = '';
+  for (var i=0; i<this.hand.length; i++){
+    var node = document.createElement('span');
+    node.innerHTML = this.hand[i].code;
+    document.getElementById('hand').appendChild(node);
+  }
+};
+
+Game.prototype.bet = function(bet){
+  this.player.bank -= bet || 10;
+}
 
 // analyze hand
 Game.prototype.analyzeHand = function () {
@@ -92,11 +107,15 @@ Game.prototype.analyzeHand = function () {
 
 // payout
 Game.prototype.payout = function (handValue, bet) {
-  this.player.bank += handValue * bet;
+  this.player.bank += handValue * (bet || 10);
+  if(handValue>0){
+    this.player.bank+= bet || 10;
+  }
 };
 
 // deal hand
 Game.prototype.deal = function (num) {
+  this.bet();
   var deckCopy = this.deck.slice();
   if(num===undefined) {
     num = 5;
