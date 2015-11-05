@@ -82,9 +82,9 @@ function fullHouse(hand){
     while (i < tempHand.length){
       var j = i+1;
       while (j < tempHand.length){
-        if (tempHand[i].name === tempHand[j].name){
+        if (tempHand[i].weight === tempHand[j].weight){
           for (var k=j+1; k<tempHand.length; k++){
-            if(tempHand[i].name === tempHand[k].name){
+            if(tempHand[i].weight === tempHand[k].weight){
               tempHand.splice(i,1);
               tempHand.splice(j-1,1);
               tempHand.splice(k-2,1);
