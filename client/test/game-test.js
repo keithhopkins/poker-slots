@@ -120,21 +120,20 @@ describe('payout', function(){
     var player = new Player("Ganesh");
     var game = new Game(player);
 
-    // it('should have an empty arr for hand', function(){
-    //     (game.hand).should.eql([]);
-    //     (game.hand.length).should.eql(0);
-    // });
+    it('should not increase bank with losing hand', function(){
 
-    // it('should have player property', function(){
-    //     (game.player).should.be.a('object');
-    // });
+        (game.player.bank).should.eql(500);
+        game.payout(2, 50);
+        (game.player.bank).should.eql(600);
+        game.payout(5, 10);
+        (game.player.bank).should.eql(650);
 
-    // it('should have deck property', function(){
-    //     (game.deck).should.be.a('array');
-    //     (game.deck.length).should.equal(52);
-    // });
+    });
+
 });
 
+
+// ** Helper functions ** //
 
 function checkSimilar(handOne, handTwo){
     var count = 0;
